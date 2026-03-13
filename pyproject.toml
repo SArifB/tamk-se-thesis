@@ -7,4 +7,5 @@ dependencies = []
 [tool.uv.workspace]
 members = [
   "projects/py-app1",
+  "projects/py-lib1",
 ]
