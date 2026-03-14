@@ -6,7 +6,9 @@ import z from 'zod'
 
 const app = new Hono()
 
-app.use('/*', cors())
+app.use('/*', cors({
+  origin: z.string().parse(process.env.JS_APP1_URL),
+}))
 
 app.get('/', (c) => {
   return c.json({ message: 'Hello Hono!' })
