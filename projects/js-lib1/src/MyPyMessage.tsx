@@ -5,7 +5,8 @@ const pyApiDataSchema = z.object({ message: z.string() })
 type PyApiData = z.output<typeof pyApiDataSchema>
 
 async function fetchPyApiData() {
-  return fetch("http://127.0.0.1:3000/py_api_data", {
+  const apiUrl = z.url().parse(import.meta.env.VITE_JS_APP2_URL)
+  return fetch(`${apiUrl}/py_api_data`, {
     headers: { accept: "application/json" }
   })
     .then(x => x.json())

@@ -327,12 +327,14 @@ source = { virtual = "projects/py-app1" }
 dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "py-lib1" },
+    { name = "python-dotenv" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.135.1" },
     { name = "py-lib1", editable = "projects/py-lib1" },
+    { name = "python-dotenv", specifier = ">=1.2.2" },
 ]
 
 [[package]]

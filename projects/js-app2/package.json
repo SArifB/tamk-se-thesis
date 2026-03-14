@@ -2,12 +2,13 @@
   "name": "js-app2",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch --env-file=.env.example src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.11",
+    "dotenv": "^17.3.1",
     "hono": "^4.12.7",
     "zod": "^4.3.6"
   },

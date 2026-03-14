@@ -3,6 +3,8 @@ import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { cors } from 'hono/cors'
 import z from 'zod'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const app = new Hono()
 
@@ -17,7 +19,8 @@ app.get('/', (c) => {
 const pyApiDataSchema = z.object({ message: z.string() })
 
 async function fetchPyApiData(token: string) {
-  return fetch(`http://127.0.0.1:8000/hello?token=${token}`, {
+  const pyAppUrl = z.url().parse(process.env.PY_APP1_URL)
+  return fetch(`${pyAppUrl}/hello?token=${token}`, {
     headers: { accept: "application/json" }
   })
     .then(x => x.json())
@@ -25,15 +28,15 @@ async function fetchPyApiData(token: string) {
 }
 
 app.get('/py_api_data', async (c) => {
-  const { PY_APP_TOKEN } = env<{ PY_APP_TOKEN: string }>(c)
-  const data = await fetchPyApiData(PY_APP_TOKEN)
+  const { PY_APP1_TOKEN_QUERY_VALUE } = env<{ PY_APP1_TOKEN_QUERY_VALUE: string }>(c)
+  const data = await fetchPyApiData(PY_APP1_TOKEN_QUERY_VALUE)
   // do something with data
-  return c.json(data) // for now just send for forward
+  return c.json(data) // for now just send forward
 })
 
 serve({
   fetch: app.fetch,
-  port: 3000
+  port: z.coerce.number().parse(process.env.JS_APP2_PORT),
 }, (info) => {
   console.log(`Server is running on http://localhost:${info.port}`)
 })
