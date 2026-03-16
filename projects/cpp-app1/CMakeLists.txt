@@ -20,3 +20,6 @@ set_target_properties(cpp-app1 PROPERTIES
   CXX_STANDARD 20
   CXX_STANDARD_REQUIRED ON
 )
+target_link_libraries(cpp-app1 PRIVATE
+  thesis::cpp-lib1
+)
