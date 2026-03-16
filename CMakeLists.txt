@@ -9,3 +9,5 @@ endif()
 
 add_subdirectory(projects/cpp-app1)
 add_subdirectory(projects/cpp-lib1)
+add_subdirectory(projects/c-lib1)
+add_subdirectory(projects/cpp-app2)
