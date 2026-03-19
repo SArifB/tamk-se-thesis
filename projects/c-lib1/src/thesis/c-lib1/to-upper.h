@@ -4,30 +4,33 @@ extern "C" {
 #endif
 
 #include <stddef.h>
+#include <stdint.h>
 
-typedef struct ThesisToUpperCtx ThesisToUpperCtx;
+#define THESIS_TO_UPPER_CTX_SIZE 64
+#define THESIS_TO_UPPER_CTX_ALIGN 8
 
-typedef struct {
-  const void* src;
-  size_t size;
-  size_t pos;
-} ThesisToUpperInputBuffer;
+typedef struct ThesisToUpperCtx {
+  alignas(THESIS_TO_UPPER_CTX_ALIGN) uint8_t buf[THESIS_TO_UPPER_CTX_SIZE];
+} ThesisToUpperCtx;
 
-typedef struct {
-  void* dst;
-  size_t size;
-  size_t pos;
-} ThesisToUpperOutputBuffer;
-
-ThesisToUpperCtx* ThesisToUpperCtx_make(void);
+ThesisToUpperCtx ThesisToUpperCtx_make(void);
 void ThesisToUpperCtx_free(ThesisToUpperCtx* ctx);
-void ThesisToUpperCtx_reset(ThesisToUpperCtx* ctx);
-size_t ThesisToUpperCtx_run_to_completion(
-  ThesisToUpperCtx* ctx, ThesisToUpperOutputBuffer* output, const ThesisToUpperInputBuffer* input);
-int ThesisToUpperCtx_end(ThesisToUpperCtx* ctx, ThesisToUpperOutputBuffer* output);
 
-size_t ThesisToUpperInputBuffer_size(void);
-size_t ThesisToUpperOutputBuffer_size(void);
+void ThesisToUpperCtx_set_input(ThesisToUpperCtx* ctx, char const* data, size_t len);
+void ThesisToUpperCtx_set_output(ThesisToUpperCtx* ctx, char* buf, size_t cap);
+
+typedef enum {
+  THESIS_TO_UPPER_OK,
+  THESIS_TO_UPPER_OUTPUT_FULL,
+  THESIS_TO_UPPER_ERROR_NO_OUTPUT
+} ThesisToUpperResult;
+
+ThesisToUpperResult ThesisToUpperCtx_process(ThesisToUpperCtx* ctx);
+
+void ThesisToUpperCtx_flush(ThesisToUpperCtx* ctx);
+
+size_t ThesisToUpperCtx_input_remaining(ThesisToUpperCtx const* ctx);
+size_t ThesisToUpperCtx_output_pending(ThesisToUpperCtx const* ctx);
 
 #ifdef __cplusplus
 }

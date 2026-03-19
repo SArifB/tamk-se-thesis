@@ -1,55 +1,80 @@
 #include "thesis/c-lib1/to-upper.h"
 
-#include <stdlib.h>
+#include <string.h>
 
-#define TO_UPPER_IN_SIZE 1 << 13   // 8192
-#define TO_UPPER_OUT_SIZE 1 << 13  // 8192
+typedef struct {
+  char const* inData;
+  size_t inLen;
+  size_t inPos;
+  char* outBuf;
+  size_t outCap;
+  size_t outLen;
+  int flushed;
+} ThesisToUpperCtxImpl;
 
-struct ThesisToUpperCtx {
-  int endCalled;
-};
+#define CTX_IMPL(ctx) ((ThesisToUpperCtxImpl*)(ctx)->buf)
 
-ThesisToUpperCtx* ThesisToUpperCtx_make(void) {
-  ThesisToUpperCtx* ctx = malloc(sizeof(ThesisToUpperCtx));
-  if (ctx) {
-    ThesisToUpperCtx_reset(ctx);
-  }
+ThesisToUpperCtx ThesisToUpperCtx_make(void) {
+  ThesisToUpperCtx ctx = { 0 };
   return ctx;
 }
 
-void ThesisToUpperCtx_free(ThesisToUpperCtx* ctx) { free(ctx); }
+void ThesisToUpperCtx_free(ThesisToUpperCtx* inctx) {
+  if (inctx) {
+    ThesisToUpperCtxImpl* ctx = CTX_IMPL(inctx);
+    if (!ctx->flushed) {
+      ThesisToUpperCtx_flush(inctx);
+    }
+  }
+}
 
-void ThesisToUpperCtx_reset(ThesisToUpperCtx* ctx) { ctx->endCalled = 0; }
+void ThesisToUpperCtx_set_input(ThesisToUpperCtx* inctx, char const* data, size_t len) {
+  ThesisToUpperCtxImpl* ctx = CTX_IMPL(inctx);
+  ctx->inData = data;
+  ctx->inLen = len;
+  ctx->inPos = 0;
+}
 
-size_t ThesisToUpperCtx_run_to_completion(
-  ThesisToUpperCtx* ctx, ThesisToUpperOutputBuffer* output, const ThesisToUpperInputBuffer* input) {
-  (void)ctx;
-  size_t inPos = input->pos;
-  size_t outPos = output->pos;
-  const char* src = (const char*)input->src;
-  char* dst = (char*)output->dst;
+void ThesisToUpperCtx_set_output(ThesisToUpperCtx* inctx, char* buf, size_t cap) {
+  ThesisToUpperCtxImpl* ctx = CTX_IMPL(inctx);
+  ctx->outBuf = buf;
+  ctx->outCap = cap;
+  ctx->outLen = 0;
+}
 
-  while (inPos < input->size && outPos < output->size) {
-    unsigned char c = (unsigned char)src[inPos++];
+ThesisToUpperResult ThesisToUpperCtx_process(ThesisToUpperCtx* inctx) {
+  ThesisToUpperCtxImpl* ctx = CTX_IMPL(inctx);
+  if (!ctx->outBuf) {
+    return THESIS_TO_UPPER_ERROR_NO_OUTPUT;
+  }
+
+  while (ctx->inPos < ctx->inLen && ctx->outLen < ctx->outCap) {
+    uint8_t c = (uint8_t)ctx->inData[ctx->inPos++];
     if (c >= 'a' && c <= 'z') {
       c = c - 'a' + 'A';
     }
-    dst[outPos++] = (char)c;
+    ctx->outBuf[ctx->outLen++] = (char)c;
   }
 
-  output->pos = outPos;
-  ((ThesisToUpperInputBuffer*)input)->pos = inPos;
+  if (ctx->inPos < ctx->inLen) {
+    return THESIS_TO_UPPER_OUTPUT_FULL;
+  }
 
-  return input->size - inPos;
+  return THESIS_TO_UPPER_OK;
 }
 
-int ThesisToUpperCtx_end(ThesisToUpperCtx* ctx, ThesisToUpperOutputBuffer* output) {
-  (void)ctx;
-  (void)output;
-  ctx->endCalled = 1;
-  return 0;
+void ThesisToUpperCtx_flush(ThesisToUpperCtx* inctx) {
+  ThesisToUpperCtxImpl* ctx = CTX_IMPL(inctx);
+  ctx->flushed = 1;
+  ctx->outLen = 0;
 }
 
-size_t ThesisToUpperInputBuffer_size(void) { return TO_UPPER_IN_SIZE; }
+size_t ThesisToUpperCtx_input_remaining(ThesisToUpperCtx const* inctx) {
+  ThesisToUpperCtxImpl const* ctx = CTX_IMPL(inctx);
+  return ctx->inLen - ctx->inPos;
+}
 
-size_t ThesisToUpperOutputBuffer_size(void) { return TO_UPPER_OUT_SIZE; }
+size_t ThesisToUpperCtx_output_pending(ThesisToUpperCtx const* inctx) {
+  ThesisToUpperCtxImpl const* ctx = CTX_IMPL(inctx);
+  return ctx->outLen;
+}
