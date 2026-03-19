@@ -17,6 +17,6 @@ target_compile_options(c-lib1 PRIVATE
 )
 set_target_properties(c-lib1 PROPERTIES
   C_EXTENSIONS OFF
-  C_STANDARD 99
+  C_STANDARD 23
   C_STANDARD_REQUIRED ON
 )

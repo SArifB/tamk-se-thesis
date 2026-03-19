@@ -17,7 +17,7 @@ target_compile_options(cpp-app1 PRIVATE
 )
 set_target_properties(cpp-app1 PROPERTIES
   CXX_EXTENSIONS OFF
-  CXX_STANDARD 20
+  CXX_STANDARD 23
   CXX_STANDARD_REQUIRED ON
 )
 target_link_libraries(cpp-app1 PRIVATE
