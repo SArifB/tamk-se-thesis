@@ -5,10 +5,10 @@ target_sources(cpp-lib1
     FILE_SET HEADERS
     BASE_DIRS src
     FILES
-      src/cpp-lib1/append-to-upper.hpp
-      src/cpp-lib1/to-upper-appender.hpp
+      src/thesis/cpp-lib1/append-to-upper.hpp
+      src/thesis/cpp-lib1/to-upper-appender.hpp
   PRIVATE
-    src/cpp-lib1/append-to-upper.cpp
+    src/thesis/cpp-lib1/append-to-upper.cpp
 )
 target_compile_options(cpp-lib1 PRIVATE
   -Wall

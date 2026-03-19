@@ -1,11 +1,6 @@
 add_executable(cpp-app2 EXCLUDE_FROM_ALL)
-target_sources(cpp-app2
-  PRIVATE
-    FILE_SET HEADERS
-    BASE_DIRS src
-    FILES
-  PRIVATE
-    src/cpp-app2/main.cpp
+target_sources(cpp-app2 PRIVATE
+  src/thesis/cpp-app2/main.cpp
 )
 target_compile_options(cpp-app2 PRIVATE
   -Wall

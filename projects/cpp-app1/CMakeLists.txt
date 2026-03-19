@@ -4,10 +4,10 @@ target_sources(cpp-app1
     FILE_SET HEADERS
     BASE_DIRS src
     FILES
-      src/cpp-app1/my-print.hpp
+      src/thesis/cpp-app1/my-print.hpp
   PRIVATE
-    src/cpp-app1/main.cpp
-    src/cpp-app1/my-print.cpp
+    src/thesis/cpp-app1/main.cpp
+    src/thesis/cpp-app1/my-print.cpp
 )
 target_compile_options(cpp-app1 PRIVATE
   -Wall
