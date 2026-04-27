@@ -1,0 +1,11 @@
+[workspace]
+resolver = "3"
+members = ["projects/rust-app1", "projects/rust-lib1", "projects/thesisrs"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.dependencies]
+rust-lib1.path = "projects/rust-lib1"
+thesisrs.path = "projects/thesisrs"

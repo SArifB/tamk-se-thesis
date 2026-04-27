@@ -1,2 +1,6 @@
+# C/CPP
 build/
 .cache
+
+# Rust
+/target

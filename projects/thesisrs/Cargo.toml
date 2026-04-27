@@ -1,0 +1,8 @@
+# This crate is purely for re-exporting rust crates with thesisrs namespace
+[package]
+name = "thesisrs"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+rust-lib1.workspace = true
