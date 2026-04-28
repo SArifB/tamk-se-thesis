@@ -1,4 +1,4 @@
-use thesisrs::rust_lib1::add;
+use thesis::rust_lib1::add;
 
 fn main() {
   println!("Hello, world!");

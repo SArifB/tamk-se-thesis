@@ -4,4 +4,4 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-thesisrs.workspace = true
+thesis.workspace = true

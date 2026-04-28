@@ -3,4 +3,8 @@ name = "rust-lib1"
 version.workspace = true
 edition.workspace = true
 
-[dependencies]
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[build-dependencies]
+cbindgen.workspace = true

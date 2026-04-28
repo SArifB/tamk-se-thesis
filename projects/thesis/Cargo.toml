@@ -1,6 +1,6 @@
-# This crate is purely for re-exporting rust crates with thesisrs namespace
+# This crate is purely for re-exporting rust crates with thesis namespace
 [package]
-name = "thesisrs"
+name = "thesis"
 version.workspace = true
 edition.workspace = true
 
