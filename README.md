@@ -9,7 +9,7 @@ To run dev we need some system dependencies:
 
 ```bash
 # for mac we can use homebrew
-brew install cmake ninja llvm emscripten rust wasm-pack node pnpm uv
+brew install cmake ninja llvm emscripten rust wasm-pack node pnpm uv podman
 ```
 
 Build instructions:
@@ -41,4 +41,29 @@ pushd ./projects/py-app2 && uv run main.py && popd
 pnpm install
 pnpm run link-example-env
 pnpm run -r --parallel dev
+```
+
+## Podman Compose
+
+The three services needed for the frontend are containerized:
+
+- `js-app1`: Vite frontend on `http://localhost:3000`
+- `js-app2`: Hono API on `http://localhost:8000`
+- `py-app1`: FastAPI service on `http://localhost:8100`
+
+I was unable to make any of the wasm dependecies on js-app1 work, so i removed them them
+
+Run them with Podman Compose from the repo root:
+
+```bash
+cp .env.example .env
+podman compose build
+podman compose up
+```
+
+If you are on macOS and Podman is not running yet:
+
+```bash
+podman machine init
+podman machine start
 ```
