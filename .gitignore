@@ -20,3 +20,4 @@ wheels/
 *.egg-info
 .ruff_cache
 .venv
+*.so

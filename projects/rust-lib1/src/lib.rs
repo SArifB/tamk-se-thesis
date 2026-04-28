@@ -27,6 +27,22 @@ mod ffi_js {
   }
 }
 
+#[cfg(feature = "python")]
+mod ffi_py {
+  use pyo3::prelude::*;
+
+  #[pymodule]
+  pub fn _core(m: &Bound<PyModule>) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(add, m)?)?;
+    Ok(())
+  }
+
+  #[pyfunction]
+  pub fn add(left: u64, right: u64) -> u64 {
+    crate::add(left, right)
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;

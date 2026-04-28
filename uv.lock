@@ -1,0 +1,31 @@
+version = 1
+revision = 3
+requires-python = ">=3.14"
+
+[manifest]
+members = [
+    "my-python-app",
+    "rust-lib1",
+    "thesis",
+]
+
+[[package]]
+name = "my-python-app"
+version = "0.1.0"
+source = { virtual = "projects/my-python-app" }
+dependencies = [
+    { name = "rust-lib1" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "rust-lib1", editable = "projects/rust-lib1" }]
+
+[[package]]
+name = "rust-lib1"
+version = "0.1.0"
+source = { editable = "projects/rust-lib1" }
+
+[[package]]
+name = "thesis"
+version = "0.1.0"
+source = { virtual = "." }
