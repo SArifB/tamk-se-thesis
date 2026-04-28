@@ -1,0 +1,31 @@
+version = 1
+revision = 3
+requires-python = ">=3.14"
+
+[manifest]
+members = [
+    "cpp-lib2",
+    "my-python-app",
+    "thesis",
+]
+
+[[package]]
+name = "cpp-lib2"
+version = "0.1.0"
+source = { editable = "projects/cpp-lib2" }
+
+[[package]]
+name = "my-python-app"
+version = "0.1.0"
+source = { virtual = "projects/my-python-app" }
+dependencies = [
+    { name = "cpp-lib2" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "cpp-lib2", editable = "projects/cpp-lib2" }]
+
+[[package]]
+name = "thesis"
+version = "0.1.0"
+source = { virtual = "." }

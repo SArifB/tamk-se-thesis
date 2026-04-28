@@ -1,0 +1,24 @@
+[project]
+name = "cpp-lib2"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.scikit-build]
+minimum-version = "build-system.requires"
+cmake.source-dir = "../../"
+# cmake.build-type = "Release"
+# build-dir = "../../build/skbuild/release"
+cmake.build-type = "Debug"
+build-dir = "../../build/skbuild/debug"
+
+[tool.uv]
+cache-keys = [
+  { file = "pyproject.toml" },
+  { file = "src/**/*.{h,c,hpp,cpp}" },
+  { file = "CMakeLists.txt" },
+]
+
+[build-system]
+requires = ["scikit-build-core>=0.12", "pybind11>=3"]
+build-backend = "scikit_build_core.build"

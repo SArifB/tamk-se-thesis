@@ -49,3 +49,26 @@ if(EMSCRIPTEN)
     thesis::cpp-lib2
   )
 endif()
+
+if(SKBUILD)
+  find_package(pybind11 CONFIG REQUIRED)
+
+  pybind11_add_module(_core MODULE
+    src/thesis/cpp-lib2.py.cpp
+  )
+  install(TARGETS _core DESTINATION ${SKBUILD_PROJECT_NAME})
+  target_compile_options(_core PRIVATE
+    -Wall
+    -Werror
+    -Wextra
+    -Wpedantic
+  )
+  set_target_properties(_core PROPERTIES
+    CXX_EXTENSIONS OFF
+    CXX_STANDARD 23
+    CXX_STANDARD_REQUIRED ON
+  )
+  target_link_libraries(_core PRIVATE
+    thesis::cpp-lib2
+  )
+endif()
