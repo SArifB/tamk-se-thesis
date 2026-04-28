@@ -25,6 +25,10 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
+        rust = pkgs.rust-bin.stable.latest.default.override {
+          extensions = [ "rust-src" ];
+          targets = [ "wasm32-unknown-unknown" ];
+        };
       in
       with pkgs;
       {
@@ -44,10 +48,7 @@
               pnpm
               python314
               uv
-              (rust-bin.stable.latest.default.override {
-                extensions = [ "rust-src" ];
-                targets = [ "wasm32-unknown-unknown" ];
-              })
+              rust
 
               # Nix helpers
               nixd
@@ -72,6 +73,13 @@
               git
               nodejs
               pnpm
+
+              clang
+              cmake
+              ninja
+              emscripten
+              wasm-pack
+              rust
             ];
           };
 
