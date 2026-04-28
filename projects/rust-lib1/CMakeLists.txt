@@ -14,6 +14,8 @@ corrosion_import_crate(
 target_sources(rust_lib1 PUBLIC
   FILE_SET HEADERS
   BASE_DIRS include
-  FILES include/thesis/rust-lib1.h
+  FILES
+    include/thesis/rust-lib1.h
+    include/thesis/rust-lib1.hpp
 )
 add_library(thesis::rust-lib1 ALIAS rust_lib1)

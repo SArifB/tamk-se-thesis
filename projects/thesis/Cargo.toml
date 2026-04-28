@@ -6,3 +6,4 @@ edition.workspace = true
 
 [dependencies]
 rust-lib1.workspace = true
+cpp-lib2.workspace = true

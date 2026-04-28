@@ -15,4 +15,5 @@ set_target_properties(cpp-app3 PROPERTIES
 )
 target_link_libraries(cpp-app3 PRIVATE
   thesis::rust-lib1
+  thesis::cpp-lib2
 )
