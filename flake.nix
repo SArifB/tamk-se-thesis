@@ -37,6 +37,7 @@
               ninja
               emscripten
               wasm-pack
+              podman
 
               # Package managers
               nodejs
@@ -51,7 +52,6 @@
               # Nix helpers
               nixd
               nil
-              codex
             ];
           };
 
