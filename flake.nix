@@ -36,11 +36,11 @@
             ninja
             emscripten
             wasm-pack
-            nodejs
 
             # Package managers
-            uv
+            nodejs
             pnpm
+            uv
             (rust-bin.stable.latest.default.override {
               extensions = [ "rust-src" ];
               targets = [ "wasm32-unknown-unknown" ];
