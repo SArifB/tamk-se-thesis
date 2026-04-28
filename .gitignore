@@ -1,3 +1,6 @@
+# Nix
+result*
+
 # C/CPP
 build/
 .cache
