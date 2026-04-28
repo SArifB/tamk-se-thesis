@@ -1,0 +1,27 @@
+FROM node:22-bookworm
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV JS_APP1_PORT=3000
+ENV VITE_JS_APP2_URL=http://localhost:8000
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    bash \
+    ca-certificates \
+    git \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN corepack enable pnpm
+
+WORKDIR /workspace
+
+COPY . .
+
+RUN pnpm install --frozen-lockfile \
+  && pnpm --filter js-lib1 build
+
+WORKDIR /workspace/projects/js-app1
+
+EXPOSE 3000
+
+CMD ["pnpm", "exec", "vite", "--host", "0.0.0.0", "--port", "3000"]

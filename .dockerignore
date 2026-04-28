@@ -1,0 +1,12 @@
+build
+target
+.cache
+.git
+.venv
+node_modules
+dist
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.DS_Store

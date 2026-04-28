@@ -1,0 +1,37 @@
+services:
+  py-app1:
+    build:
+      context: .
+      dockerfile: projects/py-app1/Containerfile
+    environment:
+      PY_APP1_PORT: "${PY_APP1_PORT}"
+      PY_APP1_TOKEN_HEADER_VALUE: "${PY_APP1_TOKEN_HEADER_VALUE}"
+      PY_APP1_TOKEN_QUERY_VALUE: "${PY_APP1_TOKEN_QUERY_VALUE}"
+    ports:
+      - "${PY_APP1_PORT}:${PY_APP1_PORT}"
+
+  js-app2:
+    build:
+      context: .
+      dockerfile: projects/js-app2/Containerfile
+    depends_on:
+      - py-app1
+    environment:
+      JS_APP1_URL: "${JS_APP1_URL}"
+      JS_APP2_PORT: "${JS_APP2_PORT}"
+      PY_APP1_URL: "http://py-app1:${PY_APP1_PORT}"
+      PY_APP1_TOKEN_QUERY_VALUE: "${PY_APP1_TOKEN_QUERY_VALUE}"
+    ports:
+      - "${JS_APP2_PORT}:${JS_APP2_PORT}"
+
+  js-app1:
+    build:
+      context: .
+      dockerfile: projects/js-app1/Containerfile
+    depends_on:
+      - js-app2
+    environment:
+      JS_APP1_PORT: "${JS_APP1_PORT}"
+      VITE_JS_APP2_URL: "${VITE_JS_APP2_URL}"
+    ports:
+      - "${JS_APP1_PORT}:${JS_APP1_PORT}"
