@@ -28,28 +28,61 @@
       in
       with pkgs;
       {
-        devShells.default = mkShell {
-          buildInputs = [
-            # Build tools
-            clang
-            cmake
-            ninja
-            emscripten
-            wasm-pack
+        devShells = {
+          default = mkShell {
+            buildInputs = [
+              # Build tools
+              clang
+              cmake
+              ninja
+              emscripten
+              wasm-pack
 
-            # Package managers
-            nodejs
-            pnpm
-            uv
-            (rust-bin.stable.latest.default.override {
-              extensions = [ "rust-src" ];
-              targets = [ "wasm32-unknown-unknown" ];
-            })
+              # Package managers
+              nodejs
+              pnpm
+              python314
+              uv
+              (rust-bin.stable.latest.default.override {
+                extensions = [ "rust-src" ];
+                targets = [ "wasm32-unknown-unknown" ];
+              })
 
-            # Nix helpers
-            nixd
-            nil
-          ];
+              # Nix helpers
+              nixd
+              nil
+              codex
+            ];
+          };
+
+          py-app1-container = mkShell {
+            packages = [
+              bash
+              cacert
+              curl
+              python314
+              uv
+            ];
+          };
+
+          js-app1-container = mkShell {
+            packages = [
+              bash
+              cacert
+              git
+              nodejs
+              pnpm
+            ];
+          };
+
+          js-app2-container = mkShell {
+            packages = [
+              bash
+              cacert
+              nodejs
+              pnpm
+            ];
+          };
         };
 
         packages.hello = hello;

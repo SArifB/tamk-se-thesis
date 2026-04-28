@@ -16,8 +16,8 @@ Build instructions:
 
 ```bash
 # for cpp, only needed for cpp apps
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
-cmake --build build --target cpp-app1 cpp-app2 cpp-app3
+cmake -B build/debug -G Ninja -DCMAKE_BUILD_TYPE=Debug
+cmake --build build/debug --target cpp-app1 cpp-app2 cpp-app3
 
 # for rust (optional)
 cargo build
@@ -45,7 +45,8 @@ pnpm run -r --parallel dev
 
 ## Podman Compose
 
-The three services needed for the frontend are containerized:
+The three services needed for the frontend are containerized with Podman, and the
+container images now use a NixOS/Nix base plus flake-defined runtime environments:
 
 - `js-app1`: Vite frontend on `http://localhost:3000`
 - `js-app2`: Hono API on `http://localhost:8000`

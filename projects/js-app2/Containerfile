@@ -1,18 +1,17 @@
-FROM node:22-bookworm-slim
+FROM nixos/nix:latest
 
+ENV NIX_CONFIG="experimental-features = nix-command flakes"
 ENV JS_APP2_PORT=8000
-
-RUN corepack enable pnpm
 
 WORKDIR /workspace
 
 COPY . .
 
-RUN pnpm install --frozen-lockfile \
-  && pnpm --filter js-app2 build
+RUN nix develop .#js-app2-container -c pnpm install --frozen-lockfile
+RUN nix develop .#js-app2-container -c pnpm --filter js-app2 build
 
 WORKDIR /workspace/projects/js-app2
 
 EXPOSE 8000
 
-CMD ["pnpm", "start"]
+CMD ["nix", "develop", ".#js-app2-container", "-c", "pnpm", "start"]

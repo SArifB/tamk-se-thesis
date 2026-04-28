@@ -1,28 +1,20 @@
-FROM python:3.14-slim
+FROM nixos/nix:latest
 
+ENV NIX_CONFIG="experimental-features = nix-command flakes"
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV UV_LINK_MODE=copy
-ENV PATH=/root/.local/bin:${PATH}
+ENV UV_PYTHON=python3.14
+ENV UV_PYTHON_DOWNLOADS=never
 ENV PY_APP1_PORT=8100
-
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    bash \
-    ca-certificates \
-    curl \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 WORKDIR /workspace
 
 COPY . .
 
-RUN uv sync --frozen --package py-app1
+RUN nix develop .#py-app1-container -c uv sync --frozen --package py-app1
 
 WORKDIR /workspace/projects/py-app1
 
 EXPOSE 8100
 
-CMD ["uv", "run", "--frozen", "fastapi", "run", "app/main.py", "--host", "0.0.0.0", "--port", "8100"]
+CMD ["nix", "develop", ".#py-app1-container", "-c", "bash", "-lc", "uv run --frozen fastapi run app/main.py --host 0.0.0.0 --port ${PY_APP1_PORT:-8100}"]
