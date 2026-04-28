@@ -6,9 +6,19 @@ ENV VITE_JS_APP2_URL=http://localhost:8000
 
 WORKDIR /workspace
 
-COPY . .
+COPY flake.nix flake.lock package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY projects/js-app1/package.json ./projects/js-app1/package.json
+COPY projects/js-lib1/package.json ./projects/js-lib1/package.json
+COPY projects/rust-lib1/package.json ./projects/rust-lib1/package.json
+COPY projects/cpp-lib2/package.json ./projects/cpp-lib2/package.json
 
 RUN nix develop .#js-app1-container -c pnpm install --frozen-lockfile
+
+COPY projects/js-app1 ./projects/js-app1
+COPY projects/js-lib1 ./projects/js-lib1
+COPY projects/rust-lib1 ./projects/rust-lib1
+COPY projects/cpp-lib2 ./projects/cpp-lib2
+
 RUN nix develop .#js-app1-container -c pnpm --filter js-lib1 build
 
 WORKDIR /workspace/projects/js-app1

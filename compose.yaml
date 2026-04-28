@@ -9,6 +9,8 @@ services:
       PY_APP1_TOKEN_QUERY_VALUE: "${PY_APP1_TOKEN_QUERY_VALUE}"
     ports:
       - "${PY_APP1_PORT}:${PY_APP1_PORT}"
+    volumes:
+      - uv-cache:/root/.cache/uv
 
   js-app2:
     build:
@@ -23,6 +25,8 @@ services:
       PY_APP1_TOKEN_QUERY_VALUE: "${PY_APP1_TOKEN_QUERY_VALUE}"
     ports:
       - "${JS_APP2_PORT}:${JS_APP2_PORT}"
+    volumes:
+      - pnpm-store:/root/.local/share/pnpm/store
 
   js-app1:
     build:
@@ -35,3 +39,9 @@ services:
       VITE_JS_APP2_URL: "${VITE_JS_APP2_URL}"
     ports:
       - "${JS_APP1_PORT}:${JS_APP1_PORT}"
+    volumes:
+      - pnpm-store:/root/.local/share/pnpm/store
+
+volumes:
+  pnpm-store:
+  uv-cache:

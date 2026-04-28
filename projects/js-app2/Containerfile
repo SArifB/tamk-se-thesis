@@ -5,9 +5,13 @@ ENV JS_APP2_PORT=8000
 
 WORKDIR /workspace
 
-COPY . .
+COPY flake.nix flake.lock package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY projects/js-app2/package.json ./projects/js-app2/package.json
 
 RUN nix develop .#js-app2-container -c pnpm install --frozen-lockfile
+
+COPY projects/js-app2 ./projects/js-app2
+
 RUN nix develop .#js-app2-container -c pnpm --filter js-app2 build
 
 WORKDIR /workspace/projects/js-app2

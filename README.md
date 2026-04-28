@@ -57,7 +57,7 @@ I was unable to make any of the wasm dependecies on js-app1 work, so i removed t
 Run them with Podman Compose from the repo root:
 
 ```bash
-cp .env.example .env
+pnpm run link-example-env
 podman compose build
 podman compose up
 ```
