@@ -5,11 +5,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "main": "./dist/cpp-lib2-emscripten.js",
   "module": "./dist/cpp-lib2-emscripten.js",
   "types": "./dist/cpp-lib2-emscripten.d.ts",
   "exports": {
-    ".": "./dist/cpp-lib2-emscripten.js",
+    ".": {
+      "types": "./dist/cpp-lib2-emscripten.d.ts",
+      "import": "./dist/cpp-lib2-emscripten.js",
+      "default": "./dist/cpp-lib2-emscripten.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
