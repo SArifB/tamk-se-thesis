@@ -1,0 +1,23 @@
+{
+  "name": "rust-lib1",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "main": "./dist/rust_lib1.js",
+  "types": "./dist/rust_lib1.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/rust_lib1.d.ts",
+      "import": "./dist/rust_lib1.js"
+    }
+  },
+  "scripts": {
+    "dev": "wasm-pack build --target web --out-dir dist/ --features wasm",
+    "build": "wasm-pack build --target web --out-dir dist/ --features wasm",
+    "build:release": "wasm-pack build --target web --out-dir dist/ --release --features wasm"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

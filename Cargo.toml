@@ -1,0 +1,14 @@
+[workspace]
+resolver = "3"
+members = ["projects/rust-lib1"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.dependencies]
+rust-lib1.path = "projects/rust-lib1"
+
+cbindgen = "0.29"
+bindgen = "0.72"
+cmake = "0.1"
