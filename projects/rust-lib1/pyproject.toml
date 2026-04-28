@@ -1,0 +1,23 @@
+[project]
+name = "rust-lib1"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.maturin]
+features = ["python"]
+module-name = "rust_lib1._core"
+python-packages = ["rust-lib1"]
+python-source = "src"
+
+[tool.uv]
+cache-keys = [
+  { file = "pyproject.toml" },
+  { file = "src/**/*.rs" },
+  { file = "Cargo.toml" },
+  { file = "Cargo.lock" },
+]
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"

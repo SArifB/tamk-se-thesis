@@ -1,0 +1,16 @@
+[workspace]
+resolver = "3"
+members = ["projects/cpp-lib2", "projects/rust-app1", "projects/rust-lib1", "projects/thesis"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.dependencies]
+thesis.path = "projects/thesis"
+rust-lib1.path = "projects/rust-lib1"
+cpp-lib2.path = "projects/cpp-lib2"
+
+cbindgen = "0.29"
+bindgen = "0.72"
+cmake = "0.1"

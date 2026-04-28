@@ -1,0 +1,14 @@
+[project]
+name = "py-app2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "cpp-lib2",
+    "rust-lib1",
+]
+
+[tool.uv.sources]
+rust-lib1 = { workspace = true }
+cpp-lib2 = { workspace = true }

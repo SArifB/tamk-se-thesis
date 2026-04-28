@@ -1,0 +1,14 @@
+[project]
+name = "thesis"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.uv.workspace]
+members = [
+  "projects/py-app1",
+  "projects/py-lib1",
+  "projects/py-app2",
+  "projects/rust-lib1",
+  "projects/cpp-lib2",
+]

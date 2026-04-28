@@ -1,0 +1,10 @@
+{
+  "name": "py-app1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "dev": "source .env && uv run fastapi dev --port=$PY_APP1_PORT"
+  },
+  "packageManager": "pnpm@10.28.0"
+}

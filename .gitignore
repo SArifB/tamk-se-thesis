@@ -1,0 +1,23 @@
+# C/CPP
+build/
+.cache
+
+# Rust
+/target
+
+# JS
+node_modules
+dist
+
+# Env
+.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[oc]
+wheels/
+*.egg-info
+.ruff_cache
+.venv
+*.so
