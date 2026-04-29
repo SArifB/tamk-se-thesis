@@ -52,8 +52,6 @@ container images now use a NixOS/Nix base plus flake-defined runtime environment
 - `js-app2`: Hono API on `http://localhost:8000`
 - `py-app1`: FastAPI service on `http://localhost:8100`
 
-I was unable to make any of the wasm dependecies on js-app1 work, so i removed them them
-
 Run them with Podman Compose from the repo root:
 
 ```bash
