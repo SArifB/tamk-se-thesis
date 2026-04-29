@@ -11,6 +11,8 @@ services:
       - "${PY_APP1_PORT}:${PY_APP1_PORT}"
     volumes:
       - uv-cache:/root/.cache/uv
+      - nix-store:/nix
+      - nix-cache:/root/.cache/nix
 
   js-app2:
     build:
@@ -27,6 +29,8 @@ services:
       - "${JS_APP2_PORT}:${JS_APP2_PORT}"
     volumes:
       - pnpm-store:/root/.local/share/pnpm/store
+      - nix-store:/nix
+      - nix-cache:/root/.cache/nix
 
   js-app1:
     build:
@@ -41,7 +45,11 @@ services:
       - "${JS_APP1_PORT}:${JS_APP1_PORT}"
     volumes:
       - pnpm-store:/root/.local/share/pnpm/store
+      - nix-store:/nix
+      - nix-cache:/root/.cache/nix
 
 volumes:
   pnpm-store:
   uv-cache:
+  nix-store:
+  nix-cache:
