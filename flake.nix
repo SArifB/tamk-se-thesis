@@ -42,6 +42,7 @@
               emscripten
               wasm-pack
               podman
+              podman-compose
 
               # Package managers
               nodejs
