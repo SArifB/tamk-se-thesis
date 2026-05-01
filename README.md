@@ -5,11 +5,17 @@ Nimi: Monikielisen ja moniarkkitehtuurisen yhdistetyn koodivaraston hallinta ja 
 
 ## Run Instructions
 
-To run dev we need some system dependencies:
+To run dev we need some system dependencies.
+In this branch though we use nix flake though.
+To continue, install nix package manager and enable experimental features.
 
 ```bash
-# for mac we can use homebrew
-brew install cmake ninja llvm emscripten rust wasm-pack node pnpm uv podman
+# choose your shell
+# this might take a while
+nix develop --command bash
+
+# optionally open dir in editor
+nix develop --command bash -c "code ."
 ```
 
 Build instructions:
@@ -18,6 +24,7 @@ Build instructions:
 # for cpp, only needed for cpp apps
 cmake -B build/debug -G Ninja -DCMAKE_BUILD_TYPE=Debug
 cmake --build build/debug --target cpp-app1 cpp-app2 cpp-app3
+ln -s debug/compile_commands.json build/
 
 # for rust (optional)
 cargo build
@@ -27,20 +34,21 @@ Run instructions:
 
 ```bash
 # run cpp
-./build/projects/cpp-app1/cpp-app1
-echo "hello" | ./build/projects/cpp-app2/cpp-app2
-./build/projects/cpp-app3/cpp-app3
+./build/debug/projects/cpp-app1/cpp-app1
+echo "hello" | ./build/debug/projects/cpp-app2/cpp-app2
+./build/debug/projects/cpp-app3/cpp-app3
 
 # run rust
 cargo run --bin rust-app1
 
 # run py
-pushd ./projects/py-app2 && uv run main.py && popd
+pushd projects/py-app2 && uv run main.py && popd
 
 # run js and py apps for frontend on http://localhost:3000/
-pnpm install
+pnpm install --frozen-lockfile
 pnpm run link-example-env
 pnpm run -r --parallel dev
+# since its parallel you might need to rerun above command
 ```
 
 ## Podman Compose
