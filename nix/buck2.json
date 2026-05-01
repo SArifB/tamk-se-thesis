@@ -1,0 +1,103 @@
+{
+  "name": "buck2",
+  "platforms": {
+    "macos-aarch64": {
+      "size": 32764794,
+      "hash": "blake3",
+      "digest": "d62219b22334d4fe7f24308211467822f8a468fe51b8d82bbe7f9b9cffb41b1d",
+      "format": "zst",
+      "path": "buck2-aarch64-apple-darwin",
+      "providers": [
+        {
+          "url": "https://github.com/facebook/buck2/releases/download/2026-05-01/buck2-aarch64-apple-darwin.zst"
+        }
+      ],
+      "nix-hash": "sha256",
+      "nix-digest": "19snl9yyf281jr49j9f1zzp0r0m4p0r7632m1b4841mdr3kb84b1"
+    },
+    "windows-aarch64": {
+      "size": 28892320,
+      "hash": "blake3",
+      "digest": "670e6108abc2da799e9924ebdce47cb458b1f724699844752f053dd706d3f654",
+      "format": "zst",
+      "path": "buck2-aarch64-pc-windows-msvc.exe",
+      "providers": [
+        {
+          "url": "https://github.com/facebook/buck2/releases/download/2026-05-01/buck2-aarch64-pc-windows-msvc.exe.zst"
+        }
+      ],
+      "nix-hash": "sha256",
+      "nix-digest": "0bjvjv33ywiv4b5ihrxrvllfzm9q3mqnk4cfp9wnxdlp12g4m6nd"
+    },
+    "linux-aarch64": {
+      "size": 35961654,
+      "hash": "blake3",
+      "digest": "12ef7ecd26e8e69a28b4f793bc1d6f33cea69fcc2d30f835ee25c29086a3d8af",
+      "format": "zst",
+      "path": "buck2-aarch64-unknown-linux-musl",
+      "providers": [
+        {
+          "url": "https://github.com/facebook/buck2/releases/download/2026-05-01/buck2-aarch64-unknown-linux-musl.zst"
+        }
+      ],
+      "nix-hash": "sha256",
+      "nix-digest": "1arv1h3gcsm1cdsa8h5nrd4yabdwbn3zg9dyjxq1xz47im8d82gl"
+    },
+    "linux-riscv64": {
+      "size": 38118176,
+      "hash": "blake3",
+      "digest": "fcfae5f253b5fbf103989e2c9361f4fe2d790cf764db7b530885ac708b79599e",
+      "format": "zst",
+      "path": "buck2-riscv64gc-unknown-linux-gnu",
+      "providers": [
+        {
+          "url": "https://github.com/facebook/buck2/releases/download/2026-05-01/buck2-riscv64gc-unknown-linux-gnu.zst"
+        }
+      ],
+      "nix-hash": "sha256",
+      "nix-digest": "1i6xbjn3d3rnib3w1hwmbwvslzd50ghnk0f5m65fyaphk4mk32ji"
+    },
+    "macos-x86_64": {
+      "size": 35032805,
+      "hash": "blake3",
+      "digest": "4724aed0e4d68516acf9254d1f3820cbedce6bb1e48d8ba5f69f04df59daa672",
+      "format": "zst",
+      "path": "buck2-x86_64-apple-darwin",
+      "providers": [
+        {
+          "url": "https://github.com/facebook/buck2/releases/download/2026-05-01/buck2-x86_64-apple-darwin.zst"
+        }
+      ],
+      "nix-hash": "sha256",
+      "nix-digest": "1fggrf70ahdph6g91fr10i3174ns5zw85q2amjhakc7w01zkcvvv"
+    },
+    "windows-x86_64": {
+      "size": 30275312,
+      "hash": "blake3",
+      "digest": "f806977c363a5ab55d60ebb848b907e83b78d6231de57aa3bd8d890091386f6e",
+      "format": "zst",
+      "path": "buck2-x86_64-pc-windows-msvc.exe",
+      "providers": [
+        {
+          "url": "https://github.com/facebook/buck2/releases/download/2026-05-01/buck2-x86_64-pc-windows-msvc.exe.zst"
+        }
+      ],
+      "nix-hash": "sha256",
+      "nix-digest": "0mda78gk3pdw7vqlf1vx73pajgydcagy588y3wn1pfyz8gmf04jy"
+    },
+    "linux-x86_64": {
+      "size": 37532464,
+      "hash": "blake3",
+      "digest": "524c6c132fafd8151736882aed6badb37cb69d4d4583a84ce5e550a9ca473c03",
+      "format": "zst",
+      "path": "buck2-x86_64-unknown-linux-musl",
+      "providers": [
+        {
+          "url": "https://github.com/facebook/buck2/releases/download/2026-05-01/buck2-x86_64-unknown-linux-musl.zst"
+        }
+      ],
+      "nix-hash": "sha256",
+      "nix-digest": "153vxm6iyikfg9cr1pwkp34r2f9a2kzzkbil0j98wx5r7kcnbyck"
+    }
+  }
+}

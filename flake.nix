@@ -29,6 +29,9 @@
           extensions = [ "rust-src" ];
           targets = [ "wasm32-unknown-unknown" ];
         };
+        buck2 = import ./nix/buck2.nix {
+          inherit pkgs system;
+        };
       in
       with pkgs;
       {
@@ -50,6 +53,7 @@
               python314
               uv
               rust
+              buck2
 
               # Nix helpers
               nixd
