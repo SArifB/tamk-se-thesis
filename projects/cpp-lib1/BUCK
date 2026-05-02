@@ -1,0 +1,14 @@
+cxx_library(
+  name = "cpp-lib1",
+  srcs = [
+    "src/thesis/cpp-lib1/append-to-upper.cpp",
+  ],
+  exported_headers = {
+    "append-to-upper.hpp":  "src/thesis/cpp-lib1/append-to-upper.hpp",
+    "to-upper-appender.hpp" : "src/thesis/cpp-lib1/to-upper-appender.hpp",
+  },
+  header_namespace = "thesis/cpp-lib1",
+  visibility = [
+    "PUBLIC", # or pattern like "//projects/cpp-app1:",
+  ],
+)

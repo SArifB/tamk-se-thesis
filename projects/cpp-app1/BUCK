@@ -1,0 +1,14 @@
+cxx_binary(
+  name = "cpp-app1",
+  srcs = [
+    "src/thesis/cpp-app1/main.cpp",
+    "src/thesis/cpp-app1/my-print.cpp",
+  ],
+  headers = {
+    "my-print.hpp": "src/thesis/cpp-app1/my-print.hpp",
+  },
+  header_namespace = "thesis/cpp-app1",
+  deps = [
+    "//projects/cpp-lib1:cpp-lib1",
+  ],
+)

@@ -24,3 +24,6 @@ wheels/
 .ruff_cache
 .venv
 *.so
+
+# Buck2
+buck-out
