@@ -54,6 +54,7 @@
               uv
               rust
               buck2
+              reindeer
 
               # Nix helpers
               nixd
