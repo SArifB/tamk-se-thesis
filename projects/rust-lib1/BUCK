@@ -1,0 +1,59 @@
+rust_library(
+  name = "rust-lib1-rs",
+  srcs = ["src/lib.rs"],
+  visibility = ["PUBLIC"],
+  edition = "2024",
+)
+
+rust_binary(
+  name = "cbindgen_cli",
+  srcs = ["tools/cbindgen_cli.rs"],
+  deps = ["//third-party:cbindgen"],
+)
+
+genrule(
+  name = "rust-lib1-header",
+  srcs = [
+    "Cargo.toml",
+    "src/lib.rs",
+  ],
+  out = "rust-lib1.h",
+  cmd = """
+    $(location :cbindgen_cli) . $OUT
+  """,
+)
+
+cxx_library(
+  name = "rust-lib1-c",
+  exported_headers = {
+    "rust-lib1.h": ":rust-lib1-header",
+  },
+  header_namespace = "thesis",
+  exported_deps = [":rust-lib1-rs"],
+  visibility = ["PUBLIC"],
+  compiler_flags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wpedantic",
+    "-std=c23",
+  ],
+)
+
+cxx_library(
+  name = "rust-lib1-cpp",
+  exported_headers = {
+    "rust-lib1.h": ":rust-lib1-header",
+    "rust-lib1.hpp": "src/rust-lib1.hpp",
+  },
+  header_namespace = "thesis",
+  exported_deps = [":rust-lib1-rs"],
+  visibility = ["PUBLIC"],
+  compiler_flags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wpedantic",
+    "-std=c++23",
+  ],
+)

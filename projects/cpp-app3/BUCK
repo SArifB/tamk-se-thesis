@@ -1,0 +1,17 @@
+cxx_binary(
+  name = "cpp-app3",
+  srcs = [
+    "src/thesis/cpp-app3/main.cpp",
+  ],
+  deps = [
+    "//projects/rust-lib1:rust-lib1-cpp",
+    "//projects/cpp-lib2:cpp-lib2",
+  ],
+  compiler_flags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wpedantic",
+    "-std=c++23",
+  ],
+)

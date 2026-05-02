@@ -1,0 +1,18 @@
+cxx_library(
+  name = "cpp-lib2",
+  srcs = [
+    "src/thesis/cpp-lib2.cpp",
+  ],
+  exported_headers = {
+    "cpp-lib2.hpp": "src/thesis/cpp-lib2.hpp",
+  },
+  header_namespace = "thesis",
+  visibility = ["PUBLIC"],
+  compiler_flags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wpedantic",
+    "-std=c++23",
+  ],
+)

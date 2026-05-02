@@ -2,6 +2,7 @@
 name = "rust-lib1"
 version.workspace = true
 edition.workspace = true
+exclude = ["tools/"]
 
 [lib]
 crate-type = ["cdylib", "staticlib", "rlib"]
