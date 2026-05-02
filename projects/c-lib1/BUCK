@@ -1,0 +1,18 @@
+cxx_library(
+  name = "c-lib1",
+  srcs = [
+    "src/thesis/c-lib1/to-upper.c",
+  ],
+  exported_headers = {
+    "to-upper.h":  "src/thesis/c-lib1/to-upper.h",
+  },
+  header_namespace = "thesis/c-lib1",
+  visibility = ["PUBLIC"],
+  compiler_flags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wpedantic",
+    "-std=c23",
+  ],
+)

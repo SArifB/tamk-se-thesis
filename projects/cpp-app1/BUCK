@@ -11,4 +11,11 @@ cxx_binary(
   deps = [
     "//projects/cpp-lib1:cpp-lib1",
   ],
+  compiler_flags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wpedantic",
+    "-std=c++23",
+  ],
 )

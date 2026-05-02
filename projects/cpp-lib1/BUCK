@@ -11,4 +11,11 @@ cxx_library(
   visibility = [
     "PUBLIC", # or pattern like "//projects/cpp-app1:",
   ],
+  compiler_flags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wpedantic",
+    "-std=c++23",
+  ],
 )

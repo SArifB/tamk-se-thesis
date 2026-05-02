@@ -1,0 +1,16 @@
+cxx_binary(
+  name = "cpp-app2",
+  srcs = [
+    "src/thesis/cpp-app2/main.cpp",
+  ],
+  deps = [
+    "//projects/c-lib1:c-lib1",
+  ],
+  compiler_flags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wpedantic",
+    "-std=c++23",
+  ],
+)
