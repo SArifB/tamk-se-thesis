@@ -1,0 +1,11 @@
+rust_library(
+  name = "thesis",
+  srcs = ["src/lib.rs"],
+  deps = [
+    "//projects/rust-lib1:rust-lib1",
+    "//projects/cpp-lib2:cpp-lib2-rs",
+  ],
+  features = ["buck2"],
+  visibility = ["PUBLIC"],
+  edition = "2024",
+)

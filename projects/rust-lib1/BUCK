@@ -1,5 +1,5 @@
 rust_library(
-  name = "rust-lib1-rs",
+  name = "rust-lib1",
   srcs = ["src/lib.rs"],
   visibility = ["PUBLIC"],
   edition = "2024",
@@ -29,7 +29,7 @@ cxx_library(
     "rust-lib1.h": ":rust-lib1-header",
   },
   header_namespace = "thesis",
-  exported_deps = [":rust-lib1-rs"],
+  exported_deps = [":rust-lib1"],
   visibility = ["PUBLIC"],
   compiler_flags = [
     "-Wall",
@@ -47,7 +47,7 @@ cxx_library(
     "rust-lib1.hpp": "src/rust-lib1.hpp",
   },
   header_namespace = "thesis",
-  exported_deps = [":rust-lib1-rs"],
+  exported_deps = [":rust-lib1"],
   visibility = ["PUBLIC"],
   compiler_flags = [
     "-Wall",

@@ -3,6 +3,10 @@ name = "cpp-lib2"
 version.workspace = true
 edition.workspace = true
 
+[features]
+default = []
+buck2 = []
+
 [build-dependencies]
 bindgen.workspace = true
 cmake.workspace = true

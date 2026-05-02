@@ -4,6 +4,10 @@ name = "thesis"
 version.workspace = true
 edition.workspace = true
 
+[features]
+default = []
+buck2 = []
+
 [dependencies]
 rust-lib1.workspace = true
 cpp-lib2.workspace = true

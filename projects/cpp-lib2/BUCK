@@ -16,3 +16,30 @@ cxx_library(
     "-std=c++23",
   ],
 )
+
+rust_binary(
+  name = "bindgen_cli",
+  srcs = ["tools/bindgen_cli.rs"],
+  deps = ["//third-party:bindgen"],
+)
+
+genrule(
+  name = "cpp-lib2-bindings",
+  srcs = ["src/thesis/cpp-lib2.hpp"],
+  out = "src/bindings.rs",
+  cmd = """
+    $(location :bindgen_cli) src/thesis/cpp-lib2.hpp $OUT
+  """,
+)
+
+rust_library(
+  name = "cpp-lib2-rs",
+  srcs = [
+    "src/lib.rs",
+    ":cpp-lib2-bindings",
+  ],
+  deps = [":cpp-lib2"],
+  features = ["buck2"],
+  visibility = ["PUBLIC"],
+  edition = "2024",
+)

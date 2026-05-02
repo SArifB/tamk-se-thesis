@@ -1,0 +1,6 @@
+rust_binary(
+  name = "rust-app1",
+  srcs = ["src/main.rs"],
+  deps = ["//projects/thesis:thesis"],
+  edition = "2024",
+)
