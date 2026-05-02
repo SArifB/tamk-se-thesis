@@ -13,3 +13,4 @@ path = "/dev/null"
 
 [dependencies]
 cbindgen = "0.29"
+bindgen = "0.72"
