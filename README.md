@@ -74,3 +74,19 @@ If you are on macOS and Podman is not running yet:
 podman machine init
 podman machine start
 ```
+
+## Buck2 build tool
+
+Buck2 is a build tool made by facebook.
+It builds on top of googles bazel build tool.
+It is slightly harder to use than regular build tools and also less used
+generally, but meant to faster and hermetic.
+
+run instructions:
+
+```bash
+buck2 run //projects/cpp-app1
+echo "hello" | buck2 run //projects/cpp-app2
+buck2 run //projects/cpp-app3
+buck2 run //projects/rust-app1
+```
