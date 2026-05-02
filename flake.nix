@@ -46,6 +46,8 @@
               wasm-pack
               podman
               podman-compose
+              buck2
+              reindeer
 
               # Package managers
               nodejs
@@ -53,8 +55,6 @@
               python314
               uv
               rust
-              buck2
-              reindeer
 
               # Nix helpers
               nixd
