@@ -22,7 +22,15 @@ Build instructions:
 
 ```bash
 # for cpp, only needed for cpp apps
-cmake -B build/debug -G Ninja -DCMAKE_BUILD_TYPE=Debug
+cmake -B build/debug -G Ninja \
+  -D CMAKE_BUILD_TYPE=Debug \
+  -D THESIS_BUILD_CPP_APP1=true \
+  -D THESIS_BUILD_CPP_APP2=true \
+  -D THESIS_BUILD_CPP_APP3=true \
+  -D THESIS_BUILD_C_LIB1=true \
+  -D THESIS_BUILD_CPP_LIB1=true \
+  -D THESIS_BUILD_CPP_LIB2=true \
+  -D THESIS_BUILD_RUST_LIB1=true
 cmake --build build/debug --target cpp-app1 cpp-app2 cpp-app3
 ln -s debug/compile_commands.json build/
 
@@ -73,4 +81,24 @@ If you are on macOS and Podman is not running yet:
 ```bash
 podman machine init
 podman machine start
+```
+
+# Nix derivations
+
+This branch shows how we can build nix derivations and run them.
+For now i have only defined packages for native binaries.
+
+```bash
+# we can build and run each one individually
+nix run .#cpp-app1
+echo "hello" | nix run .#cpp-app2
+nix run .#cpp-app3
+nix run .#rust-app1
+
+# or we can build all at the same time to run them
+nix build
+./result/bin/cpp-app1
+echo "hello" | ./result/bin/cpp-app2
+./result/bin/cpp-app3
+./result/bin/rust-app1
 ```
