@@ -7,6 +7,7 @@ dependencies = []
 [tool.scikit-build]
 minimum-version = "build-system.requires"
 cmake.source-dir = "../../"
+cmake.define = { THESIS_BUILD_CPP_LIB2 = true }
 # cmake.build-type = "Release"
 # build-dir = "../../build/skbuild/release"
 cmake.build-type = "Debug"

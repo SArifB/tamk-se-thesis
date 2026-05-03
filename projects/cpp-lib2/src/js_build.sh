@@ -14,7 +14,8 @@ emcmake cmake \
   -S ../../ \
   -B ../../build/emscripten/$BUILD_DIR \
   -G Ninja \
-  -D CMAKE_BUILD_TYPE=$BUILD_TYPE
+  -D CMAKE_BUILD_TYPE=$BUILD_TYPE \
+  -D THESIS_BUILD_CPP_LIB2=true
 
 cmake \
   --build ../../build/emscripten/$BUILD_DIR

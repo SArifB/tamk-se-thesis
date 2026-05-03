@@ -1,4 +1,16 @@
-add_executable(cpp-app1 EXCLUDE_FROM_ALL)
+option(THESIS_BUILD_CPP_APP1 "Build cpp-app1" FALSE)
+if(NOT THESIS_BUILD_CPP_APP1)
+  message(STATUS "Build option not set, ignoring build (project: cpp-app1)")
+  return()
+endif()
+
+if(EMSCRIPTEN)
+  message(FATAL_ERROR "Emscripten system found, impossible build (project: cpp-app1)")
+elseif(SKBUILD)
+  message(FATAL_ERROR "SKBuild system found, impossible build (project: cpp-app1)")
+endif()
+
+add_executable(cpp-app1)
 target_sources(cpp-app1
   PRIVATE
     FILE_SET HEADERS
@@ -22,4 +34,8 @@ set_target_properties(cpp-app1 PROPERTIES
 )
 target_link_libraries(cpp-app1 PRIVATE
   thesis::cpp-lib1
+)
+install(
+  TARGETS cpp-app1
+  EXPORT cpp-app1
 )

@@ -1,4 +1,16 @@
-add_library(c-lib1 STATIC EXCLUDE_FROM_ALL)
+option(THESIS_BUILD_C_LIB1 "Build c-lib1" FALSE)
+if(NOT THESIS_BUILD_C_LIB1)
+  message(STATUS "Build option not set, ignoring build (project: c-lib1)")
+  return()
+endif()
+
+if(EMSCRIPTEN)
+  message(FATAL_ERROR "Emscripten system found, impossible build (project: c-lib1)")
+elseif(SKBUILD)
+  message(FATAL_ERROR "SKBuild system found, impossible build (project: c-lib1)")
+endif()
+
+add_library(c-lib1 STATIC)
 add_library(thesis::c-lib1 ALIAS c-lib1)
 target_sources(c-lib1
   PUBLIC

@@ -1,5 +1,13 @@
-if(EMSCRIPTEN)
+option(THESIS_BUILD_RUST_LIB1 "Build rust-lib1" FALSE)
+if(NOT THESIS_BUILD_RUST_LIB1)
+  message(STATUS "Build option not set, ignoring build (project: rust-lib1)")
   return()
+endif()
+
+if(EMSCRIPTEN)
+  message(FATAL_ERROR "Emscripten system found, impossible build (project: rust-lib1)")
+elseif(SKBUILD)
+  message(FATAL_ERROR "SKBuild system found, impossible build (project: rust-lib1)")
 endif()
 
 include(FetchContent)

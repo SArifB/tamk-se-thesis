@@ -7,6 +7,7 @@ use cmake::Config;
 fn main() {
   let dst = Config::new("../..")
     .generator("Ninja")
+    .define("THESIS_BUILD_CPP_LIB2", "true")
     .build_target("cpp-lib2")
     .very_verbose(true)
     .build();

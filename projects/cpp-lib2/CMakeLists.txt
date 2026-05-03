@@ -1,4 +1,10 @@
-add_library(cpp-lib2 STATIC EXCLUDE_FROM_ALL)
+option(THESIS_BUILD_CPP_LIB2 "Build cpp-lib2" FALSE)
+if(NOT THESIS_BUILD_CPP_LIB2)
+  message(STATUS "Build option not set, ignoring build (project: cpp-lib2)")
+  return()
+endif()
+
+add_library(cpp-lib2 STATIC)
 add_library(thesis::cpp-lib2 ALIAS cpp-lib2)
 target_sources(cpp-lib2
   PUBLIC
