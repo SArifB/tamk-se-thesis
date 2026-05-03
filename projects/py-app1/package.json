@@ -4,7 +4,10 @@
   "private": true,
   "description": "",
   "scripts": {
-    "dev": "source .env && uv run fastapi dev --port=$PY_APP1_PORT"
+    "dev": "dotenv -- bash -c 'uv run fastapi dev --port=$PY_APP1_PORT'"
+  },
+  "dependencies": {
+    "dotenv-cli": "^11.0.0"
   },
   "packageManager": "pnpm@10.28.0"
 }
