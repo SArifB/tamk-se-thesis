@@ -25,10 +25,6 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
-        rust = pkgs.rust-bin.stable.latest.default.override {
-          extensions = [ "rust-src" ];
-          targets = [ "wasm32-unknown-unknown" ];
-        };
       in
       with pkgs;
       {
@@ -49,7 +45,10 @@
               pnpm
               python314
               uv
-              rust
+              (rust-bin.stable.latest.default.override {
+                extensions = [ "rust-src" ];
+                targets = [ "wasm32-unknown-unknown" ];
+              })
 
               # Nix helpers
               nixd
@@ -80,7 +79,9 @@
               ninja
               emscripten
               wasm-pack
-              rust
+              (rust-bin.stable.latest.minimal.override {
+                targets = [ "wasm32-unknown-unknown" ];
+              })
             ];
           };
 
@@ -94,7 +95,195 @@
           };
         };
 
-        packages.hello = hello;
+        packages =
+          let
+            cpp-app1 = stdenv.mkDerivation {
+              pname = "cpp-app1";
+              version = "0.1.0";
+
+              src = ./.;
+
+              nativeBuildInputs = [
+                clang
+                cmake
+                ninja
+              ];
+
+              # dont use default cmake setup that changes to build dir
+              dontUseCmakeConfigure = true;
+
+              configurePhase = ''
+                runHook preConfigure
+                cmake -B build/release -G Ninja \
+                  -DCMAKE_BUILD_TYPE=Release \
+                  -DTHESIS_BUILD_CPP_APP1=true \
+                  -DTHESIS_BUILD_CPP_LIB1=true
+                runHook postConfigure
+              '';
+
+              buildPhase = ''
+                runHook preBuild
+                cmake --build build/release --target cpp-app1
+                runHook postBuild
+              '';
+
+              installPhase = ''
+                runHook preInstall
+                cmake --install build/release --prefix $out
+                runHook postInstall
+              '';
+            };
+
+            cpp-app2 = stdenv.mkDerivation {
+              pname = "cpp-app2";
+              version = "0.1.0";
+
+              src = ./.;
+
+              nativeBuildInputs = [
+                clang
+                cmake
+                ninja
+              ];
+
+              # dont use default cmake setup that changes to build dir
+              dontUseCmakeConfigure = true;
+
+              configurePhase = ''
+                runHook preConfigure
+                cmake -B build/release -G Ninja \
+                  -DCMAKE_BUILD_TYPE=Release \
+                  -DTHESIS_BUILD_CPP_APP2=true \
+                  -DTHESIS_BUILD_C_LIB1=true
+                runHook postConfigure
+              '';
+
+              buildPhase = ''
+                runHook preBuild
+                cmake --build build/release --target cpp-app2
+                runHook postBuild
+              '';
+
+              installPhase = ''
+                runHook preInstall
+                cmake --install build/release --prefix $out
+                runHook postInstall
+              '';
+            };
+
+            cpp-app3 = stdenv.mkDerivation {
+              pname = "cpp-app3";
+              version = "0.1.0";
+
+              src = ./.;
+
+              nativeBuildInputs = [
+                clang
+                cmake
+                ninja
+                git
+                cacert
+                rust-bin.stable.latest.minimal
+              ];
+
+              HOME = "/tmp";
+
+              shellHook = ''
+                export CARGO_HOME="$HOME/cargo"
+                export RUSTUP_HOME="$HOME/rustup"
+                export TMPDIR="$HOME"
+              '';
+
+              # dont use default cmake setup that changes to build dir
+              dontUseCmakeConfigure = true;
+
+              configurePhase = ''
+                runHook preConfigure
+                cmake -B build/release -G Ninja \
+                  -DCMAKE_BUILD_TYPE=Release \
+                  -DTHESIS_BUILD_CPP_APP3=true \
+                  -DTHESIS_BUILD_CPP_LIB2=true \
+                  -DTHESIS_BUILD_RUST_LIB1=true
+                runHook postConfigure
+              '';
+
+              buildPhase = ''
+                runHook preBuild
+                cmake --build build/release --target cpp-app3
+                runHook postBuild
+              '';
+
+              installPhase = ''
+                runHook preInstall
+                cmake --install build/release --prefix $out
+                runHook postInstall
+              '';
+            };
+
+            rust-app1 = stdenv.mkDerivation {
+              pname = "rust-app1";
+              version = "0.1.0";
+
+              src = ./.;
+
+              nativeBuildInputs = [
+                clang
+                cmake
+                ninja
+                git
+                cacert
+                rust-bin.stable.latest.minimal
+              ];
+
+              HOME = "/tmp";
+
+              shellHook = ''
+                export CARGO_HOME="$HOME/cargo"
+                export RUSTUP_HOME="$HOME/rustup"
+                export TMPDIR="$HOME"
+              '';
+
+              # dont use default cmake setup that changes to build dir
+              dontUseCmakeConfigure = true;
+
+              # we need to define these ourselves to bypass cmake defaults
+              configurePhase = ''
+                runHook preConfigure
+                runHook postConfigure
+              '';
+
+              # we need to define these ourselves to bypass cmake defaults
+              buildPhase = ''
+                runHook preBuild
+                runHook postBuild
+              '';
+
+              installPhase = ''
+                runHook preInstall
+                cargo install --path projects/rust-app1 --root $out
+                runHook postInstall
+              '';
+            };
+          in
+          {
+            inherit
+              cpp-app1
+              cpp-app2
+              cpp-app3
+              rust-app1
+              ;
+
+            default = symlinkJoin {
+              name = "default";
+              paths = [
+                cpp-app1
+                cpp-app2
+                cpp-app3
+                rust-app1
+              ];
+            };
+
+          };
       }
     );
 }
