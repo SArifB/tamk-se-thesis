@@ -16,8 +16,9 @@ Build instructions:
 
 ```bash
 # for cpp, only needed for cpp apps
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
-cmake --build build --target cpp-app1 cpp-app2 cpp-app3
+cmake -B build/debug -G Ninja -DCMAKE_BUILD_TYPE=Debug
+cmake --build build/debug --target cpp-app1 cpp-app2 cpp-app3
+ln -s debug/compile_commands.json build/
 
 # for rust (optional)
 cargo build
@@ -27,20 +28,22 @@ Run instructions:
 
 ```bash
 # run cpp
-./build/projects/cpp-app1/cpp-app1
-echo "hello" | ./build/projects/cpp-app2/cpp-app2
-./build/projects/cpp-app3/cpp-app3
+./build/debug/projects/cpp-app1/cpp-app1
+echo "lowercase" | ./build/debug/projects/cpp-app2/cpp-app2
+./build/debug/projects/cpp-app3/cpp-app3
 
 # run rust
+./target/debug/rust-app1
+# or if you did not build yet
 cargo run --bin rust-app1
 
 # run py
 pushd ./projects/py-app2 && uv run main.py && popd
 
 # run js and py apps for frontend on http://localhost:3000/
-pnpm install
 pnpm run link-example-env
-pnpm run -r --parallel dev
+pnpm install --frozen-lockfile
+pnpm run --recursive --parallel dev
 ```
 
 ## Podman Compose
