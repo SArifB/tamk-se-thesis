@@ -35,19 +35,21 @@ Run instructions:
 ```bash
 # run cpp
 ./build/debug/projects/cpp-app1/cpp-app1
-echo "hello" | ./build/debug/projects/cpp-app2/cpp-app2
+echo "lowercase" | ./build/debug/projects/cpp-app2/cpp-app2
 ./build/debug/projects/cpp-app3/cpp-app3
 
 # run rust
+./target/debug/rust-app1
+# or if you did not build yet
 cargo run --bin rust-app1
 
 # run py
-pushd projects/py-app2 && uv run main.py && popd
+pushd ./projects/py-app2 && uv run main.py && popd
 
 # run js and py apps for frontend on http://localhost:3000/
-pnpm install --frozen-lockfile
 pnpm run link-example-env
-pnpm run -r --parallel dev
+pnpm install --frozen-lockfile
+pnpm run --recursive --parallel dev
 # since its parallel you might need to rerun above command
 ```
 
@@ -86,7 +88,7 @@ run instructions:
 
 ```bash
 buck2 run //projects/cpp-app1
-echo "hello" | buck2 run //projects/cpp-app2
+echo "lowercase" | buck2 run //projects/cpp-app2
 buck2 run //projects/cpp-app3
 buck2 run //projects/rust-app1
 ```
