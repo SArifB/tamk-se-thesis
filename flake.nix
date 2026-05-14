@@ -25,10 +25,6 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
-        rust = pkgs.rust-bin.stable.latest.default.override {
-          extensions = [ "rust-src" ];
-          targets = [ "wasm32-unknown-unknown" ];
-        };
         buck2 = import ./nix/buck2.nix {
           inherit pkgs system;
         };
@@ -54,7 +50,10 @@
               pnpm
               python314
               uv
-              rust
+              (rust-bin.stable.latest.default.override {
+                extensions = [ "rust-src" ];
+                targets = [ "wasm32-unknown-unknown" ];
+              })
 
               # Nix helpers
               nixd
@@ -85,7 +84,9 @@
               ninja
               emscripten
               wasm-pack
-              rust
+              (rust-bin.stable.latest.minimal.override {
+                targets = [ "wasm32-unknown-unknown" ];
+              })
             ];
           };
 
@@ -99,15 +100,29 @@
           };
         };
 
-        packages = rec {
-          default = symlinkJoin {
+        packages = {
+          default = stdenv.mkDerivation {
             name = "default";
-            paths = [
-              cpp-app1
-              cpp-app2
-              cpp-app3
-              rust-app1
+            version = "0.1.0";
+
+            src = ./.;
+
+            nativeBuildInputs = [
+              rust-bin.stable.latest.minimal
+              clang
+              buck2
+              cacert
             ];
+
+            installPhase = ''
+              export HOME=$TMPDIR
+
+              mkdir -p $out/bin
+              buck2 build //projects/cpp-app1 --out $out/bin/cpp-app1
+              buck2 build //projects/cpp-app2 --out $out/bin/cpp-app2
+              buck2 build //projects/cpp-app3 --out $out/bin/cpp-app3
+              buck2 build //projects/rust-app1 --out $out/bin/rust-app1
+            '';
           };
 
           cpp-app1 = stdenv.mkDerivation {
@@ -125,12 +140,9 @@
             installPhase = ''
               export HOME=$TMPDIR
 
-              APP=$(buck2 build //projects/cpp-app1 --show-output --console none | awk '{print $2}')
-
               mkdir -p $out/bin
-              cp "$APP" $out/bin/cpp-app1
+              buck2 build //projects/cpp-app1 --out $out/bin/
             '';
-            # '';
           };
 
           cpp-app2 = stdenv.mkDerivation {
@@ -148,10 +160,8 @@
             installPhase = ''
               export HOME=$TMPDIR
 
-              APP=$(buck2 build //projects/cpp-app2 --show-output --console none | awk '{print $2}')
-
               mkdir -p $out/bin
-              cp "$APP" $out/bin/cpp-app2
+              buck2 build //projects/cpp-app2 --out $out/bin/
             '';
           };
 
@@ -162,7 +172,7 @@
             src = ./.;
 
             nativeBuildInputs = [
-              pkgs.rust-bin.stable.latest.minimal
+              rust-bin.stable.latest.minimal
               clang
               buck2
               cacert
@@ -171,10 +181,8 @@
             installPhase = ''
               export HOME=$TMPDIR
 
-              APP=$(buck2 build //projects/cpp-app3 --show-output --console none | awk '{print $2}')
-
               mkdir -p $out/bin
-              cp "$APP" $out/bin/cpp-app3
+              buck2 build //projects/cpp-app3 --out $out/bin/
             '';
           };
 
@@ -185,7 +193,7 @@
             src = ./.;
 
             nativeBuildInputs = [
-              pkgs.rust-bin.stable.latest.minimal
+              rust-bin.stable.latest.minimal
               clang
               buck2
               cacert
@@ -194,10 +202,8 @@
             installPhase = ''
               export HOME=$TMPDIR
 
-              APP=$(buck2 build //projects/rust-app1 --show-output --console none | awk '{print $2}')
-
               mkdir -p $out/bin
-              cp "$APP" $out/bin/rust-app1
+              buck2 build //projects/rust-app1 --out $out/bin/
             '';
           };
 
