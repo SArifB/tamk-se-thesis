@@ -15,7 +15,7 @@ function App() {
           className="counter"
           onClick={() => setCount((count) => cpp_lib2.add(count, 1n))}
         >
-          Count is {count}
+          Cpp count is {count}
         </button>
       </section>
     </>

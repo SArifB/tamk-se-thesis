@@ -16,8 +16,9 @@ Run instructions:
 
 ```bash
 # run js
-pnpm run -r --parallel dev
+pnpm install --frozen-lockfile
+pnpm run --recursive --parallel dev
 
 # run python
-uv run projects/my-python-app/main.py
+pushd projects/my-python-app && uv run main.py && popd
 ```
