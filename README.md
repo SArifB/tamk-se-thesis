@@ -92,3 +92,23 @@ echo "lowercase" | buck2 run //projects/cpp-app2
 buck2 run //projects/cpp-app3
 buck2 run //projects/rust-app1
 ```
+
+# Nix derivations
+
+This branch shows how we can build nix derivations and run them.
+For now i have only defined packages for native binaries.
+
+```bash
+# we can build and run each one individually
+nix run .#cpp-app1
+echo "hello" | nix run .#cpp-app2
+nix run .#cpp-app3
+nix run .#rust-app1
+
+# or we can build all at the same time to run them
+nix build
+./result/bin/cpp-app1
+echo "lowercase" | ./result/bin/cpp-app2
+./result/bin/cpp-app3
+./result/bin/rust-app1
+```

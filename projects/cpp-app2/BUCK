@@ -13,4 +13,5 @@ cxx_binary(
     "-Wpedantic",
     "-std=c++23",
   ],
+  link_style = "static",
 )

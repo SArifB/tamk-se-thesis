@@ -99,7 +99,110 @@
           };
         };
 
-        packages.hello = hello;
+        packages = rec {
+          default = symlinkJoin {
+            name = "default";
+            paths = [
+              cpp-app1
+              cpp-app2
+              cpp-app3
+              rust-app1
+            ];
+          };
+
+          cpp-app1 = stdenv.mkDerivation {
+            pname = "cpp-app1";
+            version = "0.1.0";
+
+            src = ./.;
+
+            nativeBuildInputs = [
+              clang
+              buck2
+              cacert
+            ];
+
+            installPhase = ''
+              export HOME=$TMPDIR
+
+              APP=$(buck2 build //projects/cpp-app1 --show-output --console none | awk '{print $2}')
+
+              mkdir -p $out/bin
+              cp "$APP" $out/bin/cpp-app1
+            '';
+            # '';
+          };
+
+          cpp-app2 = stdenv.mkDerivation {
+            pname = "cpp-app2";
+            version = "0.1.0";
+
+            src = ./.;
+
+            nativeBuildInputs = [
+              clang
+              buck2
+              cacert
+            ];
+
+            installPhase = ''
+              export HOME=$TMPDIR
+
+              APP=$(buck2 build //projects/cpp-app2 --show-output --console none | awk '{print $2}')
+
+              mkdir -p $out/bin
+              cp "$APP" $out/bin/cpp-app2
+            '';
+          };
+
+          cpp-app3 = stdenv.mkDerivation {
+            pname = "cpp-app3";
+            version = "0.1.0";
+
+            src = ./.;
+
+            nativeBuildInputs = [
+              pkgs.rust-bin.stable.latest.minimal
+              clang
+              buck2
+              cacert
+            ];
+
+            installPhase = ''
+              export HOME=$TMPDIR
+
+              APP=$(buck2 build //projects/cpp-app3 --show-output --console none | awk '{print $2}')
+
+              mkdir -p $out/bin
+              cp "$APP" $out/bin/cpp-app3
+            '';
+          };
+
+          rust-app1 = stdenv.mkDerivation {
+            pname = "rust-app1";
+            version = "0.1.0";
+
+            src = ./.;
+
+            nativeBuildInputs = [
+              pkgs.rust-bin.stable.latest.minimal
+              clang
+              buck2
+              cacert
+            ];
+
+            installPhase = ''
+              export HOME=$TMPDIR
+
+              APP=$(buck2 build //projects/rust-app1 --show-output --console none | awk '{print $2}')
+
+              mkdir -p $out/bin
+              cp "$APP" $out/bin/rust-app1
+            '';
+          };
+
+        };
+
       }
     );
 }
