@@ -44,6 +44,7 @@ pushd ./projects/py-app2 && uv run main.py && popd
 pnpm run link-example-env
 pnpm install --frozen-lockfile
 pnpm run --recursive --parallel dev
+# since its parallel you might need to rerun above command
 ```
 
 ## Podman Compose
@@ -54,12 +55,12 @@ The three services needed for the frontend are containerized:
 - `js-app2`: Hono API on `http://localhost:8000`
 - `py-app1`: FastAPI service on `http://localhost:8100`
 
-I was unable to make any of the wasm dependecies on js-app1 work, so i removed them them
+I was unable to make any of the wasm dependecies on js-app1 work.
 
 Run them with Podman Compose from the repo root:
 
 ```bash
-cp .env.example .env
+pnpm run link-example-env
 podman compose build
 podman compose up
 ```
