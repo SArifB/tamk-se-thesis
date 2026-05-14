@@ -33,5 +33,6 @@ pnpm run link-example-env
 to dev run all projects:
 
 ```bash
-pnpm run -r --parallel dev
+pnpm install --frozen-lockfile
+pnpm run --recursive --parallel dev
 ```
